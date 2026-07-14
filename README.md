@@ -1,109 +1,117 @@
-# Scout App - Application Multifonctionnelle pour le Scoutisme
+# SDS App - Scout Management System
 
-## 📱 Vue d'ensemble
+## 🎯 Objective
+A comprehensive application for managing administrative and operational tasks for Senegalese Scouting.
 
-Application mobile complète (React Native + Expo) dédiée à la gestion administrative, pédagogique et sociale des groupes de scoutisme.
+## 🚀 Features
 
-## 🎯 Modules Principaux
+### Phase 1: Administrative Management
+- ✅ Camping Authorization System
+  - Group leaders can submit camping requests
+  - District commissioners can review and approve/reject requests
+  - Real-time notifications for leaders
+  - Detailed audit trails
 
-### 1. Module Exécutif
-- Gestion des procédures administratives
-- Autorisation de camper
-- Fiches techniques d'activité
-- Fiches de suivi
-- Fiches d'évaluation
-- Rapports financiers
-- Système de notifications et rappels
-- Validation par cachet numérique
+## 🏗️ Architecture
 
-### 2. Module Pédagogique
-- Documents par branche (Louveteaux, Éclaireurs, Routier)
-- Ressources audio (chants scouts)
-- Téléchargement et consultation
+### Backend (Node.js + Express + PostgreSQL)
+- RESTful API
+- Real-time notifications via Socket.IO
+- JWT authentication
+- Role-based access control
+- Database schema with proper indexes
 
-### 3. Module Adultes & Programmes Jeunes
-- Politiques mondiales et nationales
-- Sujets de devoirs (badges)
-- Documents du programme jeunes
+### Frontend (React + Tailwind CSS)
+- Responsive UI
+- Form validation
+- Real-time notifications
+- Intuitive admin dashboard
 
-### 4. Module États Nominatifs
-- Gestion des membres par groupe
-- Classification automatique par âge et branche
-- Gestion des fonctions et numéros d'assurance
+## 📋 Database Schema
 
-### 5. Module Documentaire
-- Statuts juridiques
-- Règlements intérieurs
-- Procédures administratives et financières
+### Core Tables
+- `users` - User accounts with roles
+- `districts` - Scout districts
+- `scout_groups` - Scout groups within districts
+- `camping_authorizations` - Camping requests and approvals
+- `notifications` - User notifications
+- `audit_logs` - Action audit trails
 
-### 6. Module Chat
-- Discussions de groupe et individuelles
-- Partage de fichiers
-- Appels et vidéoconférences
-- Envoi de vocaux et vidéos
+## 🔧 Setup Instructions
 
-## 🏗️ Architecture Technique
+### Prerequisites
+- Node.js (v18+)
+- PostgreSQL (v14+)
+- npm or yarn
 
-### Frontend
-- **React Native** + Expo
-- Navigation: React Navigation
-- State Management: Redux Toolkit
-- UI: React Native Paper
-
-### Backend
-- **Node.js** + Express
-- **PostgreSQL** pour la base de données
-- **Socket.io** pour le chat temps réel
-- **JWT** pour l'authentification
-
-### Sécurité
-- Authentification JWT
-- Hachage des mots de passe (bcrypt)
-- RGPD et protection des données personnelles
-
-## 📋 Installation
-
-### Backend
+### Backend Setup
 ```bash
 cd backend
 npm install
+
+# Create .env file
 cp .env.example .env
+
+# Update database credentials in .env
+
+# Run migrations
+npm run migrate
+
+# Start server
 npm run dev
 ```
 
-### Frontend
+### Frontend Setup
 ```bash
 cd frontend
 npm install
-npm start
+
+# Create .env file with API URL
+echo "REACT_APP_API_URL=http://localhost:5000/api" > .env
+
+# Start development server
+npm run dev
 ```
 
-## 📁 Structure du Projet
+## 📚 API Endpoints
 
-```
-SDS-app/
-├── backend/
-│   ├── src/
-│   │   ├── config/
-│   │   ├── middleware/
-│   │   ├── routes/
-│   │   └── migrations/
-│   ├── .env.example
-│   └── package.json
-├── frontend/
-│   ├── src/
-│   │   ├── screens/
-│   │   ├── redux/
-│   │   └── components/
-│   ├── app.json
-│   └── package.json
-├── docs/
-│   ├── API.md
-│   ├── DATABASE.md
-│   └── SETUP.md
-└── README.md
-```
+### Camping Authorizations
+- `POST /api/camping-authorizations` - Create new request
+- `GET /api/camping-authorizations/:id` - Get authorization details
+- `GET /api/camping-authorizations/pending` - Get pending requests
+- `GET /api/camping-authorizations/my/requests` - Get user's requests
+- `POST /api/camping-authorizations/:id/approve` - Approve request
+- `POST /api/camping-authorizations/:id/reject` - Reject request
 
-## 👨‍💻 Contributeurs
+### Notifications
+- `GET /api/notifications` - Get user notifications
+- `GET /api/notifications/unread/count` - Get unread count
+- `PUT /api/notifications/:id/read` - Mark as read
+- `PUT /api/notifications/read-all` - Mark all as read
 
-- @districtjappo-design
+## 🔐 Authentication
+- JWT token-based authentication
+- Token stored in localStorage
+- Automatic token refresh on requests
+
+## 👥 User Roles
+- `admin` - Full system access
+- `district_commissioner` - District-level approvals
+- `group_leader` - Scout group management
+- `scout` - Basic scout member
+
+## 📧 Notifications
+- Real-time via Socket.IO
+- Email notifications (future)
+- In-app notification center
+- Read/unread status tracking
+
+## 🚦 Next Steps
+1. Deploy database
+2. Test API endpoints
+3. Implement authentication pages
+4. Add email notification service
+5. Develop dashboard
+
+## 📞 Support
+For issues or questions, please contact the development team.
